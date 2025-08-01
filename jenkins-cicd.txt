@@ -1,0 +1,184 @@
+1--> login to https://github.com/hkhcoder
+
+2--> goto branch jenkins-ci
+
+3-->vprofile-project/userdata/
+
+4-->https://www.jenkins.io/doc/book/installing/linux/
+
+d3793194900c433397677c8362c79a56
+
+
+HOST github.com-ashok1012
+        user git
+ IdentityFile ~/.ssh/ashok
+ HOSTNAME github.com
+
+git@github.com-ashok1012:Ashok1012/vprofile-project.git
+
+cat ~/.ssh/config
+
+
+
+  322  git config --global user.email "ashok.anupam465@gmail.com"
+  323  git config --global user.name "Ashok1012"
+  324  pwd
+  326  cd ~/.ssh
+  327  ls
+  328  ssh-keygen
+  329  ls
+  330  cat ashok.pub
+       cd  ~/.ssh/
+       vim config
+
+HOST github.com-ashok1012
+        user git
+ IdentityFile ~/.ssh/ashok
+ HOSTNAME github.com
+
+
+  354  cd ~
+  355  cd Desktop
+  356  mkir jenkinsci
+  357  mkdir jenkinsci
+  358  cd jenkinsci
+  359  clear
+  360  git clone git@github.com-ashok1012:Ashok1012/vprofile-project.git
+  361  ls
+  362  cd vprofile-project/
+  365  git checkout jenkins-ci
+  366  clear
+  367  cat .git/config
+  368  cd ~/.ssh/config
+  369  cat ~/.ssh/config
+  370  ls
+  371  vim README.md
+  372  git add .
+  373  git commit -m "testcommit-2"
+  375  git push origin jenkins-ci
+
+
+JDK17
+
+JAVA_HOME
+
+/usr/lib/jvm/java-17-amazon-corretto
+
+    9  cd /usr/lib/jvm/
+   10  ls -l
+  .......................................................................................................................................
+
+pipeline {
+    agent any
+    tools {
+        maven "MAVEN3.9"
+        jdk "JDK17"
+    }
+    
+    environment {
+        SNAP_REPO = 'vprofile-snapshot'
+		NEXUS_USER = 'admin'
+		NEXUS_PASS = 'admin123'
+		RELEASE_REPO = 'vprofile-release'
+		CENTRAL_REPO = 'vpro-maven-central'
+		NEXUSIP = '172.31.1.19'
+		NEXUSPORT = '8081'
+		NEXUS_GRP_REPO = 'vpro-maven-group'
+        NEXUS_LOGIN = 'nexuslogin'
+    }
+
+    stages {
+        stage('Build'){
+            steps {
+                sh 'mvn -s settings.xml -DskipTests install'
+            }
+        }
+    }
+}
+
+
+..................................
+
+http://54.151.54.110:8080/github-webhook/   -- for web hook
+
+to fix build failure
+
+su - jenkins
+
+ssh -T git@github.com
+.................................
+
+sqa_47339e0795fe484d73b30238be00b91558426c0a- sonar token
+
+......................................................................................
+
+https://docs.sonarsource.com/sonarqube-server/8.9/analyzing-source-code/scanners/sonarscanner-for-jenkins/
+
+...................................................................
+
+https://github.com/jenkinsci/nexus-artifact-uploader-plugin  --nexus artifact uploader link--copy code for jenkins
+
+
+.....................................................................
+
+https://slack.com/intl/en-in/help/articles/212681477-Sign-in-to-Slack
+
+
+...............................................................................................
+Integration token credential ID: Create a secret text credential using xHp0P53OdhUZWA4aRSoVAheP as the value
+
+
+...................................................................................................................................................................
+
+ Continuous Delivery Project
+
+395  cd Desktop
+  396  ls
+  397  cd jenkinsci/
+  398  ls
+  399  cd vprofile-project/
+  400  git status
+  401  git checkout -b jenkins-cicd
+  402  clear
+  403  mkdir stagepipeline prodpipeline
+  404  ls
+  405  cp Jenkinsfile stagepipeline/
+  406  cp Jenkinsfile prodpipeline/
+  407  ls
+  408  git rm Jenkinsfile
+  409  ls
+  410  git add .
+  411  git commit -m "Dockerfiles created"
+  412  git push origin jenkins-cicd
+  413  history
+ 11  snap install aws-cli --classic
+   12  # Add Docker's official GPG key:
+   13  sudo apt-get update
+   14  sudo apt-get install ca-certificates curl
+   15  sudo install -m 0755 -d /etc/apt/keyrings
+   16  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   17  sudo chmod a+r /etc/apt/keyrings/docker.asc
+   18  # Add the repository to Apt sources:
+   19  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   20  sudo apt-get update
+   21  clear
+   22  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+   23  clear
+   24  docker --version
+   25  docker images
+   26  su -jenkins
+   27  su - jenkins
+   28  usermod -aG docker jenkins
+   29  id jenkins
+   30  systemctl restart jenkins
+
+
+https://github.com/hkhcoder/vprofile-project/tree/docker
+
+
+https://docs.docker.com/engine/install/ubuntu/   ---- install docker engine not desktop on ubuntu
+
+
+
+
